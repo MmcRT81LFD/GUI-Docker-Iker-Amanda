@@ -25,3 +25,10 @@ dbus-launch startxfce4 &\n\
 sleep 2\n\
 x11vnc -display :0 -forever -nopw -shared -bg\n\
 /usr/sbin/sshd -D' > /startup.sh && chmod +x /startup.sh
+# CONTRASEÑA ROOT
+RUN echo "root:root" | chpasswd
+
+#VNC/SSH
+EXPOSE 5900 22
+
+CMD ["/startup.sh"]
