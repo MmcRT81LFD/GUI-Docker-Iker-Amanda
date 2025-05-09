@@ -18,3 +18,10 @@ RUN curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor
 
 RUN mkdir /var/run/sshd
 
+RUN echo '#!/bin/bash\n\
+Xvfb :0 -screen 0 1280x800x24 &\n\
+sleep 2\n\
+dbus-launch startxfce4 &\n\
+sleep 2\n\
+x11vnc -display :0 -forever -nopw -shared -bg\n\
+/usr/sbin/sshd -D' > /startup.sh && chmod +x /startup.sh
